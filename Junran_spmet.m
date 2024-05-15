@@ -1,23 +1,11 @@
-%% Single Particle Model w/ Electrolyte & Temperature
-%   Published December 18, 2016 by Professor Scott Moura
-%   Energy, Controls, and Applications Lab (eCAL)
-%   University of California, Berkeley
-%   http://ecal.berkeley.edu/
-
-%   Code based on publications
-%   Battery State Estimation for a Single Particle Model with Electrolyte Dynamics 
-%   S. J. Moura, F. Bribiesca Argomedo, R. Klein, A. Mirtabatabaei, M. Krstic 
-%   IEEE Transactions on Control System Technology, to appear 
-%   DOI: 10.1109/TCST.2016.2571663
-
-%   Optimal Charging of Batteries via a Single Particle Model with Electrolyte and Thermal Dynamics 
-%   H. Perez, X. Hu, S. J. Moura 
-%   2016 American Control Conference
-%   DOI: 10.1109/ACC.2016.7525538
-tic
-clear;
-clc;
-close all;
+% Author: Junran Chen
+% Date: 2024-May-15
+% Function: Copy of spmet.m that can be used for GA.
+function [OBJ] = Main(Opt_Param)
+% tic
+% clear;
+% clc;
+% close all;
 
 %disp('Single Particle Model w/ Electrolyte & Temperature (SPMeT)')
 %disp('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%')
@@ -25,6 +13,10 @@ close all;
 %% Electrochemical Model Parameters
 % Load Lithium Cobolt Oxide Params, adopted from DUALFOIL
 run param/params_LCO
+
+% modify model parameters from GA.
+
+
 
 %% Input charge/discharge Current Data %%
 % % Current | Positive <=> Discharge, Negative <=> Charge
@@ -194,4 +186,5 @@ fprintf(1,'Elapsed time: %4.1f sec or %2.2f min \n',simtime,simtime/60);
 %disp(' animate_spmet')
 
 
-toc
+% toc
+end
