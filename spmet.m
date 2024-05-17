@@ -17,7 +17,7 @@
 tic
 clear;
 clc;
-close all;
+% close all;
 
 %disp('Single Particle Model w/ Electrolyte & Temperature (SPMeT)')
 %disp('%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%')
@@ -44,6 +44,10 @@ p.OneC = min(p.epsilon_s_n*p.L_n*Delta_cn*p.Faraday/3600, p.epsilon_s_p*p.L_p*De
 
 %%%%%%%%%%%%%%% DYNAMIC CHARGE/DISCHARGE CYCLES FROM EXPERIMENTS %%%%%%%%%%%%%%%
 load('input-data/UDDS');
+volt_exp = volt_exp(588:end,:);
+time_exp = time_exp(588:end,:);
+current_exp = current_exp(588:end,:);
+temp_exp = temp_exp(588:end,:);
 
 I = -current_exp'/p.Area*10;
 t = time_exp';
@@ -88,7 +92,7 @@ fprintf(1,'Time Step : %2.2f sec\n',p.delta_t);
 
 %%% INITIAL CONDITIONS
 % Solid concentration
-V0 = 3.8;
+V0 = 3.931840400000000;
 [csn0,csp0] = init_cs(p,V0);
 c_n0 = csn0 * ones(p.Nr-1,1);
 c_p0 = csp0 * ones(p.Nr-1,1);

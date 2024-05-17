@@ -94,10 +94,15 @@ p.k_p = p.k_p0 * exp(p.E.kp/p.R*(1/p.T_ref - 1/T1));
 % Stochiometric Concentration Ratio
 theta_n = c_ss_n / p.c_s_n_max;
 theta_p = c_ss_p / p.c_s_p_max;
-
+if ~isreal(theta_n)
+    theta_n = 0;
+end
+if ~isreal(theta_p)
+    theta_p = 0;
+end
 % Equilibrium Potential
-Unref = refPotentialAnode(p,theta_n);
-Upref = refPotentialCathode(p,theta_p);
+Unref = Junran_refPotentialAnode(p,theta_n);
+Upref = Junran_refPotentialCathode(p,theta_p);
 
 % Exchange current density
 c_e_bar = [cen_bar; ces_bar; cep_bar];
@@ -211,10 +216,15 @@ c_n = [c_s_n(1); c_s_n; c_ss_n];
 c_p = [c_s_p(1); c_s_p; c_ss_p];
 SOC_n = 3/p.c_s_n_max * trapz(r_vec,r_vec.^2.*c_n);
 SOC_p = 3/p.c_s_p_max * trapz(r_vec,r_vec.^2.*c_p);
-
+if ~isreal(SOC_n)
+    SOC_n = 0;
+end
+if ~isreal(SOC_p)
+    SOC_p = 0;
+end
 % Equilibrium potentials
-[Unb,~,dUnbdT] = refPotentialAnode(p, SOC_n);
-[Upb,~,dUpbdT] = refPotentialCathode(p, SOC_p);
+[Unb,~,dUnbdT] = Junran_refPotentialAnode(p, SOC_n);
+[Upb,~,dUpbdT] = Junran_refPotentialCathode(p, SOC_p);
 
 % Heat generation
 % disp(cur)

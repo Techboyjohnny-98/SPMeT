@@ -22,8 +22,8 @@ for idx = 1:maxiters
     theta_p = x(idx)/p.c_s_p_max;
     theta_n = (p.n_Li_s-p.epsilon_s_p*p.L_p*p.Area*x(idx))/(p.c_s_n_max*p.epsilon_s_n*p.L_n*p.Area);
 
-    OCPn = refPotentialAnode(p,theta_n);
-    OCPp = refPotentialCathode(p,theta_p);
+    OCPn = Junran_refPotentialAnode(p,theta_n);
+    OCPp = Junran_refPotentialCathode(p,theta_p);
 
     f(idx) = OCPp - OCPn - V;
         
