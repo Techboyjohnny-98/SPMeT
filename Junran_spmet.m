@@ -17,23 +17,23 @@ run param/params_LCO
 
 
 % modify model parameters from GA.
-    p.L_p           = Opt_Param(1);
-    p.L_n           = Opt_Param(2);
-    p.c_s_p_max     = Opt_Param(3);
-    p.c_s_n_max     = Opt_Param(4);
-    p.epsilon_s_p   = Opt_Param(5);
-    p.epsilon_s_n   = Opt_Param(6);
-    p.Area          = Opt_Param(7);
-    p.R_s_p         = Opt_Param(8);
-    p.R_s_n         = Opt_Param(9);
-    p.D_s_p0        = Opt_Param(10);
-    p.D_s_n0        = Opt_Param(11);
-    p.R_f_n         = Opt_Param(12);
-    p.epsilon_e_p   = Opt_Param(13);
-    p.epsilon_e_n   = Opt_Param(14);
-    p.c_e           = Opt_Param(15);
-    p.L_s           = Opt_Param(16);
-    p.t_plus        = Opt_Param(17);
+%     p.L_p           = Opt_Param(1);
+%     p.L_n           = Opt_Param(2);
+%     p.c_s_p_max     = Opt_Param(3);
+%     p.c_s_n_max     = Opt_Param(4);
+%     p.epsilon_s_p   = Opt_Param(5);
+%     p.epsilon_s_n   = Opt_Param(6);
+%     p.Area          = Opt_Param(7);
+%     p.R_s_p         = Opt_Param(8);
+%     p.R_s_n         = Opt_Param(9);
+%     p.D_s_p0        = Opt_Param(10);
+%     p.D_s_n0        = Opt_Param(11);
+%     p.R_f_n         = Opt_Param(12);
+%     p.epsilon_e_p   = Opt_Param(13);
+%     p.epsilon_e_n   = Opt_Param(14);
+%     p.c_e           = Opt_Param(15);
+%     p.L_s           = Opt_Param(16);
+%     p.t_plus        = Opt_Param(17);
     p.OCP_Anode     = Opt_Param(18:44);
     p.OCP_Cathode   = Opt_Param(45:63);
 
