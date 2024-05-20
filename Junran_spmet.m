@@ -35,8 +35,6 @@ run param/params_Samsung30T.m
     p.c_e           = Opt_Param(15);
     p.L_s           = Opt_Param(16);
     p.t_plus        = Opt_Param(17);
-    p.OCP_Anode     = Opt_Param(18:44);
-    p.OCP_Cathode   = Opt_Param(45:63);
 
 
 %% Input charge/discharge Current Data %%
@@ -66,15 +64,15 @@ p.OneC = min(p.epsilon_s_n*p.L_n*Delta_cn*p.Faraday/3600, p.epsilon_s_p*p.L_p*De
 % p.delta_t = t(2)-t(1);
 % V0 = 3.931840400000000;
 %%%%%%%%%%%%%%%Samsung 30T 1C discharge profile%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-load('input-data/A123_1C_disch.mat');
+load('input-data/Samsung30T_1C_disch.mat');
 volt_exp = meas.Voltage(:,1);
 time_exp = meas.Time(:,1);
 current_exp = meas.Current(:,1);
-temp_exp = meas.Battery_Temp_degC(:,1);
-I = -current_exp'/p.Area;
+temp_exp = meas.Battery_temp_DegC(:,1);
+I = -current_exp'/p.Area*4.5822;
 t = time_exp';
 p.delta_t = t(2)-t(1);
-V0 = 3.2842;
+V0 = 4.1552;
 
 
 
