@@ -12,28 +12,29 @@ function [OBJ] = Junran_spmet(Opt_Param)
 
 %% Electrochemical Model Parameters
 % Load Lithium Cobolt Oxide Params, adopted from DUALFOIL
-run param/params_LCO
+run param/params_Samsung30T.m
+% run param/params_LCO.m
     % GA selected parameters
 
 
 % modify model parameters from GA.
-%     p.L_p           = Opt_Param(1);
-%     p.L_n           = Opt_Param(2);
-%     p.c_s_p_max     = Opt_Param(3);
-%     p.c_s_n_max     = Opt_Param(4);
-%     p.epsilon_s_p   = Opt_Param(5);
-%     p.epsilon_s_n   = Opt_Param(6);
-%     p.Area          = Opt_Param(7);
-%     p.R_s_p         = Opt_Param(8);
-%     p.R_s_n         = Opt_Param(9);
-%     p.D_s_p0        = Opt_Param(10);
-%     p.D_s_n0        = Opt_Param(11);
-%     p.R_f_n         = Opt_Param(12);
-%     p.epsilon_e_p   = Opt_Param(13);
-%     p.epsilon_e_n   = Opt_Param(14);
-%     p.c_e           = Opt_Param(15);
-%     p.L_s           = Opt_Param(16);
-%     p.t_plus        = Opt_Param(17);
+    p.L_p           = Opt_Param(1);
+    p.L_n           = Opt_Param(2);
+    p.c_s_p_max     = Opt_Param(3);
+    p.c_s_n_max     = Opt_Param(4);
+    p.epsilon_s_p   = Opt_Param(5);
+    p.epsilon_s_n   = Opt_Param(6);
+    p.Area          = Opt_Param(7);
+    p.R_s_p         = Opt_Param(8);
+    p.R_s_n         = Opt_Param(9);
+    p.D_s_p0        = Opt_Param(10);
+    p.D_s_n0        = Opt_Param(11);
+    p.R_f_n         = Opt_Param(12);
+    p.epsilon_e_p   = Opt_Param(13);
+    p.epsilon_e_n   = Opt_Param(14);
+    p.c_e           = Opt_Param(15);
+    p.L_s           = Opt_Param(16);
+    p.t_plus        = Opt_Param(17);
     p.OCP_Anode     = Opt_Param(18:44);
     p.OCP_Cathode   = Opt_Param(45:63);
 
@@ -52,17 +53,29 @@ p.OneC = min(p.epsilon_s_n*p.L_n*Delta_cn*p.Faraday/3600, p.epsilon_s_p*p.L_p*De
 % p.delta_t = 1;
 % t = 0:p.delta_t:(180);
 % I = 5*p.OneC*ones(size(t));
-
+% V0 = 3.931840400000000;
 
 %%%%%%%%%%%%%%% DYNAMIC CHARGE/DISCHARGE CYCLES FROM EXPERIMENTS %%%%%%%%%%%%%%%
-load('input-data/UDDS');
-volt_exp = volt_exp(588:end,:);
-time_exp = time_exp(588:end,:);
-current_exp = current_exp(588:end,:);
-temp_exp = temp_exp(588:end,:);
-I = -current_exp'/p.Area*10;
+% load('input-data/UDDS');
+% volt_exp = volt_exp(588:end,:);
+% time_exp = time_exp(588:end,:);
+% current_exp = current_exp(588:end,:);
+% temp_exp = temp_exp(588:end,:);
+% I = -current_exp'/p.Area*10;
+% t = time_exp';
+% p.delta_t = t(2)-t(1);
+% V0 = 3.931840400000000;
+%%%%%%%%%%%%%%%Samsung 30T 1C discharge profile%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+load('input-data/A123_1C_disch.mat');
+volt_exp = meas.Voltage(:,1);
+time_exp = meas.Time(:,1);
+current_exp = meas.Current(:,1);
+temp_exp = meas.Battery_Temp_degC(:,1);
+I = -current_exp'/p.Area;
 t = time_exp';
 p.delta_t = t(2)-t(1);
+V0 = 3.2842;
+
 
 
 % Data structure with time,current, initial condition
@@ -103,7 +116,7 @@ p.delta_x_p = 1 / p.Nxp;
 
 %%% INITIAL CONDITIONS
 % Solid concentration
-V0 = 3.931840400000000;
+
 [csn0,csp0] = init_cs(p,V0);
 c_n0 = csn0 * ones(p.Nr-1,1);
 c_p0 = csp0 * ones(p.Nr-1,1);
@@ -201,7 +214,7 @@ end
 
 % Output Elapsed time
 simtime = toc;
-fprintf(1,'Elapsed time: %4.1f sec or %2.2f min \n',simtime,simtime/60);
+% fprintf(1,'Elapsed time: %4.1f sec or %2.2f min \n',simtime,simtime/60);
 
 %disp('To plots results, run...');
 %disp(' plot_spmet')
