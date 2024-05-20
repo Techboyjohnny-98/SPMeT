@@ -8,6 +8,9 @@ if(~isreal(theta))
     error('dfn:err','Complex theta_n');
 %     pause;
 end
+% if theta<0
+%     theta = 0;
+% end
 %% From Weihan's paper
 
 % Uref = OCP_Anode_1...

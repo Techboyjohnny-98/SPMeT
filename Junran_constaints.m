@@ -17,11 +17,17 @@ function [c,ceq] = Junran_constaints(x)
     p.c_e           = x(15);
     p.L_s           = x(16);
     p.t_plus        = x(17);
-    [cn_low,cp_low] = init_cs(p,p.volt_min);
-    [cn_high,cp_high] = init_cs(p,p.volt_max);
-    Delta_cn = cn_high-cn_low;
-    Delta_cp = cp_low-cp_high;
-    p.OneC = min(p.epsilon_s_n*p.L_n*Delta_cn*p.Faraday/3600, p.epsilon_s_p*p.L_p*Delta_cp*p.Faraday/3600);
+    p.n_Li_s = 0.008*(p.c_s_n_max*p.epsilon_s_n*p.L_n*p.Area) ...
+        +p.epsilon_s_p*p.L_p*p.Area*0.915*p.c_s_p_max;
+%     [cn_low,cp_low] = init_cs(p,p.volt_min);
+%     [cn_high,cp_high] = init_cs(p,p.volt_max);
+%     Delta_cn = cn_high-cn_low;
+%     Delta_cp = cp_low-cp_high;
+%     p.OneC = min(p.epsilon_s_n*p.L_n*Delta_cn*p.Faraday/3600, p.epsilon_s_p*p.L_p*Delta_cp*p.Faraday/3600);
+%     c = [];
+%     ceq = p.OneC - 3;
     c = [];
-    ceq = p.OneC - 3;
+    ceq(1) = 0.661*p.c_s_p_max*p.epsilon_s_p*p.L_p*p.Faraday/3600 - p.Capacity;
+    ceq(2) = 0.847*p.c_s_n_max*p.epsilon_s_n*p.L_n*p.Faraday/3600 - p.Capacity;
+    
 end

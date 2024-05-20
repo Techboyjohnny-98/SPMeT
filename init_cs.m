@@ -12,8 +12,8 @@ f = nan*ones(maxiters,1);
 tol = 1e-5;
 
 % Initial Guesses
-x_low = 0.2 * p.c_s_p_max;
-x_high = 1.0 * p.c_s_p_max;
+x_low = 0.254 * p.c_s_p_max;
+x_high = 0.915 * p.c_s_p_max;
 x(1) = 0.6 * p.c_s_p_max;
 
 % Iterate Bisection Algorithm
@@ -21,6 +21,12 @@ for idx = 1:maxiters
 
     theta_p = x(idx)/p.c_s_p_max;
     theta_n = (p.n_Li_s-p.epsilon_s_p*p.L_p*p.Area*x(idx))/(p.c_s_n_max*p.epsilon_s_n*p.L_n*p.Area);
+%     if theta_n<0
+%         x_low = x(idx);
+%         x(idx+1) = (x_high + x_low)/2;
+%         x(idx+1)/p.c_s_p_max;
+%         continue
+%     end
 
     OCPn = Junran_refPotentialAnode(p,theta_n);
     OCPp = Junran_refPotentialCathode(p,theta_p);

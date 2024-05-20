@@ -139,12 +139,12 @@ p.c_s_n_max = 3.6e3 * 372 * 1800 / p.Faraday;   % Max concentration in anode, [m
 %p.c_s_p_max = 3.6e3 * 247 * 5010 / p.Faraday;    % Max concentration in cathode, [mol/m^3]
 p.c_s_p_max = 3.6e3 * 274 * 5010 / p.Faraday;    % Max concentration in cathode, [mol/m^3]
 
-p.n_Li_s = 2.5; %2.781;        % Total moles of lithium in solid phase [mol]
+p.n_Li_s = 0.4225747;%2.5; %2.781;        % Total moles of lithium in solid phase [mol]
 p.c_e = 1e3;              % Fixed electrolyte concentration for SPM, [mol/m^3]
 
 %% Cutoff voltages
 p.volt_max = 4.2; %4.1113; %4.7;
-p.volt_min = 2.5; %2.6;
+p.volt_min = 2.7; %2.6;
 %% OCP 
 p.OCP_Anode     = [0.194,...   %
                     1.5,...     %
@@ -195,5 +195,5 @@ p.OCP_Cathode   = [1.76295323133875, ...
     0.248447993124128, ...
     0.644067917548008];
 
-
+p.Capacity = 3;
 
