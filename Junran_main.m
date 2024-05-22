@@ -97,7 +97,8 @@ InitialPopulation_Data = [
     t_plus_init,...
 %     n_Li_s
     ];
-
+% load ./GA_results/May20_50_100.mat
+% InitialPopulation_Data = x;
 %% Parameter boundary
     % low boundary
 L_p_lb = 1e-6;         % Thickness of negative electrode [m]

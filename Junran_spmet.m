@@ -92,7 +92,27 @@ temp_exp = meas.Battery_temp_DegC(:,1);
 I = -current_exp'/p.Area;
 t = time_exp';
 p.delta_t = t(2)-t(1);
-V0 = 4.1552;
+V0 = volt_exp(1);
+    % Drive cycle
+% load('input-data/Samsung30T_driveCycle.mat');
+% volt_exp = meas.Voltage(12500:17641,1);
+% time_exp = meas.Time(12500:17641,1);
+% current_exp = meas.Current(12500:17641,1);
+% temp_exp = meas.Battery_temp_DegC(12500:17641,1);
+% I = -current_exp'/p.Area;
+% t = time_exp';
+% p.delta_t = t(2)-t(1);
+% V0 = volt_exp(1);
+    % Drive cycle testing set
+% load('input-data/Samsung30T_driveCycle.mat');
+% volt_exp = meas.Voltage(1:12500,1);
+% time_exp = meas.Time(1:12500,1);
+% current_exp = meas.Current(1:12500,1);
+% temp_exp = meas.Battery_temp_DegC(1:12500,1);
+% I = -current_exp'/p.Area;
+% t = time_exp';
+% p.delta_t = t(2)-t(1);
+% V0 = volt_exp(1);
 
 
 
@@ -191,7 +211,11 @@ clear M1n M2n M3n M4n M5n M1s M2s M3s M4s M1p M2p M3p M4p M5p C_ce;
 x0 = [c_n0; c_p0; ce0; T10; T20; delta_sei0];
 % INTEGRATE !!!!
 [t,x] = ode23s(@(t,x) ode_spmet(t,x,data,p),t,x0);
-
+if ~isreal(x(:,1))
+    OBJ = 10*find(imag(x(:,1))~=0,1);
+    disp(OBJ)
+    return
+end
 % Parse states
 c_s_n = x(:,1:(p.Nr-1));
 c_s_p = x(:,p.Nr : 2*(p.Nr-1));
@@ -240,9 +264,7 @@ end
 %% Get error for GA 
 error = volt_exp - V;
 OBJ = sqrt(mean(error.^2));  %RMSE
-if ~isreal(OBJ)
-    OBJ = 100000;
-end
+
 disp(OBJ)
 % toc
 end
