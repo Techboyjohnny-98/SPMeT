@@ -37,21 +37,21 @@ Delta_cp = cp_low-cp_high;
 p.OneC = min(p.epsilon_s_n*p.L_n*Delta_cn*p.Faraday/3600, p.epsilon_s_p*p.L_p*Delta_cp*p.Faraday/3600);
 
 %%%%%%%%%%%%%%% MANUAL INPUT WITH C-RATE %%%%%%%%%%%%%%%%%%%%%%%%%
-% p.delta_t = 1;
-% t = 0:p.delta_t:(180);
-% I = 5*p.OneC*ones(size(t));
+p.delta_t = 1;
+t = 0:p.delta_t:(180);
+I = 5*p.OneC*ones(size(t));
 
 
 %%%%%%%%%%%%%%% DYNAMIC CHARGE/DISCHARGE CYCLES FROM EXPERIMENTS %%%%%%%%%%%%%%%
-load('input-data/UDDS');
-volt_exp = volt_exp(588:end,:);
-time_exp = time_exp(588:end,:);
-current_exp = current_exp(588:end,:);
-temp_exp = temp_exp(588:end,:);
-
-I = -current_exp'/p.Area*10;
-t = time_exp';
-p.delta_t = t(2)-t(1);
+% load('input-data/UDDS');
+% volt_exp = volt_exp(588:end,:);
+% time_exp = time_exp(588:end,:);
+% current_exp = current_exp(588:end,:);
+% temp_exp = temp_exp(588:end,:);
+% 
+% I = -current_exp'/p.Area*10;
+% t = time_exp';
+% p.delta_t = t(2)-t(1);
 
 
 % Data structure with time,current, initial condition

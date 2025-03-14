@@ -31,7 +31,7 @@ for idx = 1:maxiters
     OCPn = Junran_refPotentialAnode(p,theta_n);
     OCPp = Junran_refPotentialCathode(p,theta_p);
 
-    f(idx) = OCPp - OCPn - V;
+    f(idx) = OCPp - OCPn - V;   %Assume the input voltage is OCV
         
     if(abs(f(idx)) <= tol)
         break;

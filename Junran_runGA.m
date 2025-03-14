@@ -21,5 +21,6 @@ options = gaoptimset(options,'UseParallel',1);
 options = gaoptimset(options,'TolCon',1e-3);
 [x,fval,exitflag,output,population,score] = ...
 ga(@Junran_spmet,nvars,[],[],[],[],lb,ub,@Junran_constaints,[],options);
-% ga(@Junran_OCV_OBJ,nvars,[],[],[],[],lb,ub,[],[],options);
+ga(@Junran_OCV_OBJ,nvars,[],[],[],[],lb,ub,[],[],options);
+
 

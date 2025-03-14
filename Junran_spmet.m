@@ -93,16 +93,17 @@ p.OneC = min(p.epsilon_s_n*p.L_n*Delta_cn*p.Faraday/3600, p.epsilon_s_p*p.L_p*De
 % t = time_exp';
 % p.delta_t = t(2)-t(1);
 % V0 = volt_exp(1);
-    % Drive cycle - HWFET (trained from this)
-% load('input-data/Samsung30T_driveCycle.mat');
-% volt_exp = meas.Voltage(12500:17641,1);
-% time_exp = meas.Time(12500:17641,1);
-% current_exp = meas.Current(12500:17641,1);
-% temp_exp = meas.Battery_temp_DegC(12500:17641,1);
-% I = -current_exp'/p.Area;
-% t = time_exp';
-% p.delta_t = t(2)-t(1);
-% V0 = volt_exp(1);
+    %% Drive cycle - HWFET (trained from this)
+load('input-data/Samsung30T_driveCycle.mat');
+volt_exp = meas.Voltage(12500:17641,1);
+time_exp = meas.Time(12500:17641,1);
+current_exp = meas.Current(12500:17641,1);
+temp_exp = meas.Battery_temp_DegC(12500:17641,1);
+I = -current_exp'/p.Area;
+t = time_exp';
+p.delta_t = t(2)-t(1);
+SOC = (meas.Ah(12500:17641,1)+2.4)/3;
+V0 = volt_exp(1);
     % Drive cycle testing set - UDDS
 % load('input-data/Samsung30T_driveCycle.mat');
 % volt_exp = meas.Voltage(1:12500,1);
@@ -123,13 +124,22 @@ p.OneC = min(p.epsilon_s_n*p.L_n*Delta_cn*p.Faraday/3600, p.epsilon_s_p*p.L_p*De
 % t = time_exp';
 % p.delta_t = t(2)-t(1);
 % V0 = volt_exp(1);
-% Drive cycle testing set - US06
 % load('input-data/Samsung30T_driveCycle.mat');
-data_raw = readtable("input-data\_25degC_UDDS.csv");
-volt_exp = data_raw.V;
-time_exp = data_raw.Time;
-current_exp = data_raw.P./data_raw.V;
-temp_exp = data_raw.T;
+% data_raw = readtable("input-data\_25degC_UDDS.csv");
+% volt_exp = data_raw.V;
+% time_exp = data_raw.Time;
+% current_exp = data_raw.P./data_raw.V;
+% temp_exp = data_raw.T;
+% I = -current_exp'/p.Area;
+% t = time_exp';
+% p.delta_t = t(2)-t(1);
+% V0 = volt_exp(1);
+%% US06
+load('input-data/Samsung30T_driveCycle.mat');
+volt_exp = meas.Voltage(27802:29693,1);
+time_exp = meas.Time(27802:29693,1);
+current_exp = meas.Current(27802:29693,1);
+temp_exp = meas.Battery_temp_DegC(27802:29693,1);
 I = -current_exp'/p.Area;
 t = time_exp';
 p.delta_t = t(2)-t(1);

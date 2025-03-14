@@ -19,6 +19,8 @@ V0 = 4.173;
 %% OCV calculation -> Theta got from Weihan's paper
 Theta_n = linspace(0.855, 0.008, 1205);
 Theta_p = linspace(0.254, 0.915, 1205);
+% Theta_n = linspace(1, 0, 1205);
+% Theta_p = linspace(0, 1, 1205);
 V_p = Junran_refPotentialCathode(p, Theta_p);
 V_n = Junran_refPotentialAnode(p, Theta_n);
 OCV_estim = V_p - V_n;

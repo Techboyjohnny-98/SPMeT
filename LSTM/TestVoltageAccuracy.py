@@ -7,6 +7,7 @@ import numpy as np
 import pandas as pd
 import torch
 import torch.nn as nn
+import timeit
 import torch.optim as optim
 import torch.utils.data as data
 from datetime import datetime, timedelta
@@ -69,6 +70,7 @@ from VEstimLSTM import VEstimLSTM
 # compareV = np.concatenate((y_pred, Y_Test), axis=1)
 # np.savetxt("./result/Voltage_test.csv", compareV)
 # ---------------------------Tested on data from csv file---------------------------------
+
 loss_fn = nn.MSELoss()
 device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')  # select CPU or GPU
 test = pd.read_csv('./Samsung30T_driveCycle.csv')
@@ -76,24 +78,32 @@ Y_Test = test[["V"]].values.astype('float32')
 test = test[["Ah", "T", "P"]].values.astype('float32')
 test[:, 0] = (   # align data to fully charge
                             test[:, 0] + 3 - np.max(test[:, 0]))
-X_Test = torch.tensor(test[27800:29705]).cuda()
-Y_Test = torch.tensor(Y_Test[27800:29705])
+X_Test = torch.tensor(test[26802:29693]).cuda()
+Y_Test = torch.tensor(Y_Test[26802:29693])
 best_model = torch.load('./LSTM_Aug18_CUDA1.model', map_location='cuda:0').get('model').cuda()
 best_model.eval()
 y_predict = []
 y_measured = []
 total_valid_loss = []
+start = timeit.default_timer()
 h_s = torch.zeros(2, 16)  # 2-layers, 100-batch, 16-hidden layers.
 h_c = torch.zeros(2, 16)
 with torch.no_grad():
     h_s = h_s.to(device)
     h_c = h_c.to(device)
     y_pred, (h_s, h_c) = best_model(X_Test, h_s, h_c)
+    # i = 1
+    # while i < len(X_Test):
+    #     y_pred, (h_s, h_c) = best_model(torch.unsqueeze(X_Test[i, :], 0), h_s, h_c)
+    #     i = i+1
     y_pred = np.asarray(y_pred.cpu())
 y_pred = np.array(y_pred) - 0.15
 Y_Test = np.array(Y_Test)
-error_P = (y_pred - Y_Test)
+error_P = (y_pred[999:-1] - Y_Test[999:-1])
 RMSEP = np.sqrt(np.mean(np.square(error_P)))*1000
 print(RMSEP)
+stop = timeit.default_timer()
+print('Time: ', stop - start)
 compareV = np.concatenate((y_pred, Y_Test), axis=1)
 np.savetxt("./Voltage_test.csv", compareV)
+
