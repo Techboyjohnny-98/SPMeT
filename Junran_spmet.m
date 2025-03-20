@@ -135,15 +135,15 @@ V0 = volt_exp(1);
 % p.delta_t = t(2)-t(1);
 % V0 = volt_exp(1);
 %% US06
-load('input-data/Samsung30T_driveCycle.mat');
-volt_exp = meas.Voltage(27802:29693,1);
-time_exp = meas.Time(27802:29693,1);
-current_exp = meas.Current(27802:29693,1);
-temp_exp = meas.Battery_temp_DegC(27802:29693,1);
-I = -current_exp'/p.Area;
-t = time_exp';
-p.delta_t = t(2)-t(1);
-V0 = volt_exp(1);
+% load('input-data/Samsung30T_driveCycle.mat');
+% volt_exp = meas.Voltage(27802:29693,1);
+% time_exp = meas.Time(27802:29693,1);
+% current_exp = meas.Current(27802:29693,1);
+% temp_exp = meas.Battery_temp_DegC(27802:29693,1);
+% I = -current_exp'/p.Area;
+% t = time_exp';
+% p.delta_t = t(2)-t(1);
+% V0 = volt_exp(1);
 
 
 

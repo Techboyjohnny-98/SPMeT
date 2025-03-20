@@ -185,7 +185,7 @@ ub = [
 PopInitRange_Data      = [lb; ub];
 
 %% GA population parameters
-PopulationSize_Data    = 50;% fill here;
+PopulationSize_Data    = 10;% fill here;
 Generations_Data       = 100;% fill here;·
 
 %% Run GA
